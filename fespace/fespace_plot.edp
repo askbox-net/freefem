@@ -1,0 +1,24 @@
+real R1 = 2.0;
+real R2 = 0.5;
+int N = 50;
+
+border C1(t=0, 2.*pi) {
+	x = R1 * cos(t);
+	y = R1 * sin(t);
+	label = 111;
+}
+
+border C2(t=0, 2.*pi) {
+	x = R2 * cos(t);
+	y = R2 * sin(t);
+	label = 222;
+}
+
+mesh Th = buildmesh(C1(N) + C2(-N));
+fespace Vh(Th, P1);
+
+Vh u = x*x + y*y;
+
+plot(u, ps="outputs/fespace_plot.eps", value=true);
+plot(u, fill=true, ps="outputs/fespace_plot_fill.eps", dim=3, value=true);
+
